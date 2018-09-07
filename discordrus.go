@@ -7,8 +7,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/sirupsen/logrus"
 	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
 const (
@@ -26,6 +27,8 @@ const (
 type Opts struct {
 	// Username replaces the default username of the webhook bot for the sent message only if set (default: none)
 	Username string
+	// Avatar replaces the default avatar of the webhook bot for the sent message only if set (default: none)
+	Avatar string
 	// Author adds an author field if set (default: none)
 	Author string
 	// DisableInlineFields causes fields to be displayed one per line as opposed to being inline (i.e., in columns) (default: false)
@@ -108,6 +111,11 @@ func (hook *Hook) parseToJson(entry *logrus.Entry) (*[]byte, error) {
 	// Add username to data
 	if hook.Opts.Username != "" {
 		data["username"] = hook.Opts.Username
+	}
+
+	// Add username to data
+	if hook.Opts.Avatar != "" {
+		data["avatar_url"] = hook.Opts.Avatar
 	}
 
 	// Add description to embed
