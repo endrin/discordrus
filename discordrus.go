@@ -51,15 +51,18 @@ type Hook struct {
 	WebhookURL string
 	// MinLevel is the minimum priority level to enable logging for
 	MinLevel logrus.Level
+	// MaxLevel is the maximum priority level to enable logging for
+	MaxLevel logrus.Level
 	// Opts contains the options available for the hook
 	Opts *Opts
 }
 
 // NewHook creates a new instance of a hook, ensures correct string lengths and returns its pointer
-func NewHook(webhookURL string, minLevel logrus.Level, opts *Opts) *Hook {
+func NewHook(webhookURL string, minLevel, maxlevel logrus.Level, opts *Opts) *Hook {
 	hook := Hook{
 		WebhookURL: webhookURL,
 		MinLevel:   minLevel,
+		MaxLevel:   maxlevel,
 		Opts:       opts,
 	}
 
@@ -95,7 +98,7 @@ func (hook *Hook) Fire(entry *logrus.Entry) error {
 }
 
 func (hook *Hook) Levels() []logrus.Level {
-	return LevelThreshold(hook.MinLevel)
+	return LevelThreshold(hook.MinLevel, hook.MaxLevel)
 }
 
 func (hook *Hook) parseToJson(entry *logrus.Entry) (*[]byte, error) {

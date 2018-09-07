@@ -20,6 +20,7 @@ func init() {
 		// Use environment variable for security reasons
 		os.Getenv("DISCORDRUS_WEBHOOK_URL"),
 		// Set minimum level to DebugLevel to receive all log entries
+		logrus.PanicLevel,
 		logrus.DebugLevel,
 		&Opts{
 			Username:           "Test Username",

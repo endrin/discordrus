@@ -44,18 +44,18 @@ func TestLevelThreshold(t *testing.T) {
 	}
 
 	// Test extreme boundaries
-	debugThreshold := LevelThreshold(logrus.DebugLevel)
+	debugThreshold := LevelThreshold(logrus.PanicLevel, logrus.DebugLevel)
 	if !reflect.DeepEqual(debugThreshold, expectedDebugThreshold) {
 		t.Error("Debug threshold does not match expected slice")
 	}
 
-	panicThreshold := LevelThreshold(logrus.PanicLevel)
+	panicThreshold := LevelThreshold(logrus.PanicLevel, logrus.PanicLevel)
 	if !reflect.DeepEqual(panicThreshold, expectedPanicThreshold) {
 		t.Error("Panic threshold does not match expected slice")
 	}
 
 	// Test within boundaries
-	errorThreshold := LevelThreshold(logrus.ErrorLevel)
+	errorThreshold := LevelThreshold(logrus.PanicLevel, logrus.ErrorLevel)
 	if !reflect.DeepEqual(errorThreshold, expectedErrorThreshold) {
 		t.Error("Error threshold does not match expected slice")
 	}

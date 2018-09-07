@@ -25,8 +25,8 @@ var DefaultLevelColors = LevelColors{
 }
 
 // LevelThreshold returns a slice of all the levels above and including the level specified
-func LevelThreshold(l logrus.Level) []logrus.Level {
-	return logrus.AllLevels[:l+1]
+func LevelThreshold(min, max logrus.Level) []logrus.Level {
+	return logrus.AllLevels[min : max+1]
 }
 
 // LevelColor returns the respective color for the logrus level
